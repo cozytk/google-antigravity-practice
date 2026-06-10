@@ -1,0 +1,369 @@
+/* ============================================================
+   Antigravity 2일차 덱 — "관제 시트(Mission Control Sheet)" 디자인
+   팔레트: paper #F6F7F4 / ink #0F1E32 / intl-orange #E14F12
+           rule #C9D3DB / dim #54647A / go #0B7A4B / hold #B45309 / nogo #B42318
+   타이포: Space Grotesk(라틴 디스플레이) + IBM Plex Sans KR(본문) + IBM Plex Mono(라벨)
+   시그니처: 상단 텔레메트리 아이브로우(모노 + 오렌지 틱), 권한=신호등(GO/HOLD/NO-GO)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  --paper: #F6F7F4;
+  --ink: #0F1E32;
+  --dim: #54647A;
+  --rule: #C9D3DB;
+  --orange: #E14F12;
+  --orange-soft: #FBE9E0;
+  --card: #FFFFFF;
+  --go: #0B7A4B;
+  --hold: #B45309;
+  --nogo: #B42318;
+  --display: 'Space Grotesk', 'IBM Plex Sans KR', sans-serif;
+}
+
+.slidev-layout {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  word-break: keep-all;
+  padding: 2.6rem 3.2rem 2.2rem;
+  line-height: 1.55;
+}
+
+/* ---------- 텔레메트리 아이브로우 (시그니처) ----------
+   계약: <p class="eyebrow">M1 · ANTIGRAVITY BASICS</p> — 평문만 넣는다 */
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 0.5rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 0.62rem;
+  height: 0.62rem;
+  background: var(--orange);
+  flex: none;
+}
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.slidev-layout h1 {
+  font-family: var(--display);
+  font-size: 1.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.7rem;
+  color: var(--ink);
+}
+.slidev-layout h1 em {
+  font-style: normal;
+  color: var(--orange);
+}
+.slidev-layout h2 { font-family: var(--display); font-weight: 700; }
+
+/* 헤드라인 아래 한 줄 요지. 계약: <p class="thesis">…</p> */
+.thesis {
+  font-size: 0.95rem;
+  color: var(--dim);
+  margin: -0.3rem 0 1rem;
+}
+
+/* ---------- 카드 그리드 ----------
+   계약: .duo/.trio/.quad 직계 자식은 .pane
+         .pane 안은 h3(제목) + p(본문)만. b/span 금지 */
+.duo, .trio, .quad { display: grid; gap: 0.75rem; margin: 0.9rem 0; }
+.duo  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.trio { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.quad { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.pane {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 0.8rem 0.95rem;
+  box-shadow: 0 14px 16px -16px rgba(15, 30, 50, 0.35); /* 살짝 떠 있는 무중력 그림자 */
+}
+.pane h3 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 0 0 0.3rem;
+  color: var(--ink);
+}
+.pane p { font-size: 0.78rem; color: var(--dim); margin: 0; line-height: 1.55; }
+.pane p + p { margin-top: 0.35rem; }
+.pane h3 .latin {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--orange);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+/* 강조 카드(모듈당 1회만 사용) */
+.pane.key { border-color: var(--orange); border-width: 1.5px; }
+
+/* ---------- 신호등 칩 ----------
+   계약: <i class="sig go">GO — Allow</i> 류. i 태그 전용 */
+.sig {
+  font-style: normal;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  margin-bottom: 0.4rem;
+}
+.sig::before { content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: currentColor; }
+.sig.go { color: var(--go); }
+.sig.hold { color: var(--hold); }
+.sig.nogo { color: var(--nogo); }
+
+/* ---------- 표 ---------- */
+.slidev-layout table { width: 100%; font-size: 0.78rem; border-collapse: collapse; margin: 0.8rem 0; }
+.slidev-layout th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-align: left;
+  border-bottom: 1.5px solid var(--ink);
+  padding: 0.3rem 0.6rem 0.3rem 0;
+}
+.slidev-layout td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.42rem 0.6rem 0.42rem 0;
+  color: var(--ink);
+  vertical-align: top;
+}
+.slidev-layout td:first-child { font-weight: 600; white-space: nowrap; }
+.slidev-layout tr:last-child td { border-bottom: none; }
+.compact-table table { font-size: 0.72rem; }
+.compact-table td { padding: 0.3rem 0.5rem 0.3rem 0; }
+
+/* ---------- 단계 리스트 ----------
+   계약: <div class="steps"><div><b>제목</b><span>설명</span></div>…</div>
+         b/span은 block으로 풀어둔다 (inline 붙음 방지) */
+.steps { counter-reset: step; display: grid; gap: 0.55rem; margin: 0.9rem 0; }
+.steps > div {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+}
+.steps > div::before {
+  content: counter(step, decimal-leading-zero);
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--orange);
+  line-height: 1.4;
+}
+.steps b { display: block; grid-column: 2; font-size: 0.84rem; font-weight: 700; }
+.steps span { display: block; grid-column: 2; font-size: 0.76rem; color: var(--dim); line-height: 1.5; }
+
+/* ---------- 가로 플로우 ----------
+   계약: <div class="flow"><div><b>라벨</b><span>설명</span></div>…</div> */
+.flow { display: flex; align-items: stretch; gap: 0; margin: 0.9rem 0; }
+.flow > div {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+  position: relative;
+  margin-right: 1.6rem;
+}
+.flow > div:last-child { margin-right: 0; }
+.flow > div::after {
+  content: '→';
+  position: absolute;
+  right: -1.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--orange);
+  font-weight: 700;
+}
+.flow > div:last-child::after { content: none; }
+.flow b { display: block; font-size: 0.8rem; font-weight: 700; }
+.flow span { display: block; font-size: 0.72rem; color: var(--dim); line-height: 1.45; margin-top: 0.15rem; }
+
+/* ---------- 하단 노트 밴드 ----------
+   계약: <p class="note"><b>라벨</b> 본문…</p> */
+.note {
+  border-left: 3px solid var(--orange);
+  background: var(--orange-soft);
+  border-radius: 0 8px 8px 0;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.8rem;
+  margin: 0.9rem 0 0;
+  color: var(--ink);
+}
+.note b {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--orange);
+  margin-right: 0.4rem;
+}
+
+/* ---------- 코드 ---------- */
+.slidev-layout :not(pre) > code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82em;
+  background: #E8ECEF;
+  color: var(--ink);
+  border-radius: 4px;
+  padding: 0.08em 0.38em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.slidev-layout pre {
+  background: var(--card) !important;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  padding: 0.7rem 0.9rem;
+}
+.slidev-layout .slidev-code-wrapper { margin: 0.7rem 0; }
+
+/* ---------- 표지 ---------- */
+.cover-sheet { display: flex; flex-direction: column; height: 100%; }
+.cover-telemetry {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.6rem;
+}
+.cover-sheet .title-block { margin: auto 0; }
+.cover-sheet .latin-mark {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.34em;
+  color: var(--orange);
+  margin-bottom: 0.9rem;
+}
+.cover-sheet h1 {
+  font-size: 2.7rem;
+  line-height: 1.22;
+  margin: 0 0 1rem;
+}
+.cover-sheet .cover-sub { font-size: 1rem; color: var(--dim); max-width: 34rem; }
+.cover-foot {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--dim);
+  border-top: 1px solid var(--rule);
+  padding-top: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ---------- 섹션 디바이더 ----------
+   계약: class: divider 슬라이드. .div-no(모듈번호) + h2 + .div-sub + .div-file */
+.divider { display: flex; flex-direction: column; justify-content: center; position: relative; }
+.divider::before {
+  /* 점선 궤적 — 무중력 비행 경로 */
+  content: '';
+  position: absolute;
+  left: 3.2rem;
+  right: 3.2rem;
+  top: 24%;
+  border-top: 2px dashed var(--rule);
+}
+.div-no {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 5.2rem;
+  color: var(--orange);
+  line-height: 1;
+  margin: 0 0 1rem;
+}
+.divider h2 { font-size: 2rem; margin: 0 0 0.6rem; }
+.div-sub { font-size: 1rem; color: var(--dim); margin: 0; }
+.div-file {
+  position: absolute;
+  bottom: 2.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--dim);
+}
+
+/* ---------- 2열 본문+이미지 ----------
+   계약: <div class="split"><div>본문</div><div>이미지/보조</div></div> */
+.split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.4rem; align-items: start; margin: 0.9rem 0; }
+.split img { border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 14px 18px -16px rgba(15, 30, 50, 0.4); }
+.split figcaption, .imgcap {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--dim);
+  margin-top: 0.4rem;
+}
+
+/* ---------- 체크리스트 ----------
+   계약: .checklist 안의 ul>li */
+.checklist ul { list-style: none; padding: 0; margin: 0.8rem 0; display: grid; gap: 0.45rem; }
+.checklist li {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.82rem;
+}
+.checklist li::before {
+  content: '☐';
+  color: var(--orange);
+  font-weight: 700;
+  margin-right: 0.55rem;
+}
+
+/* ---------- 밀도 압축 변형 (콘텐츠 많은 슬라이드용) ---------- */
+.compact { padding-top: 2.1rem; }
+.compact h1 { margin-bottom: 0.45rem; font-size: 1.6rem; }
+.compact .duo, .compact .trio, .compact .quad { margin: 0.6rem 0; gap: 0.6rem; }
+.compact .pane { padding: 0.6rem 0.8rem; }
+.compact .steps { gap: 0.4rem; margin: 0.6rem 0; }
+.compact .steps > div { padding: 0.42rem 0.75rem; }
+.compact .note { margin-top: 0.6rem; padding: 0.45rem 0.8rem; }
+
+/* 본문 리스트 기본 */
+.slidev-layout ul:not(.checklist ul) { font-size: 0.85rem; }
+.slidev-layout li { margin: 0.2rem 0; }
+
+/* 마지막 페이지 링크 줄 */
+.refs {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--dim);
+  line-height: 1.9;
+}
+.refs a { color: var(--orange); border-bottom: 1px dotted var(--orange); }
