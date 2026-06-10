@@ -2,6 +2,7 @@
 theme: default
 title: Antigravity와 바이브 코딩 — 2일차
 colorSchema: light
+routerMode: hash
 fonts:
   sans: IBM Plex Sans KR
   mono: IBM Plex Mono
