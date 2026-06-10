@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "slidev slides.md",
-    "build": "slidev build slides.md --base /google-antigravity-practice/ && node scripts/strip-dead-preload.mjs",
+    "build": "slidev build slides.md --base /google-antigravity-practice/ --out dist && node scripts/strip-dead-preload.mjs dist",
+    "build:prod": "slidev build slides.md --base /google-antigravity-practice/prod/ --out dist-prod && node scripts/strip-dead-preload.mjs dist-prod",
     "visual:qa": "node scripts/visual-qa.mjs"
   },
   "dependencies": {

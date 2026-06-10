@@ -346,6 +346,140 @@
   margin-right: 0.55rem;
 }
 
+/* ---------- 정의 리스트 (용어·기능 나열 — 카드 대신 헤어라인 행) ----------
+   계약: <div class="deflist"><div><b>용어</b><span>설명</span></div>…</div> */
+.deflist { display: grid; gap: 0; margin: 0.8rem 0; }
+.deflist > div {
+  display: grid;
+  grid-template-columns: 11.5rem 1fr;
+  gap: 1rem;
+  padding: 0.46rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.deflist > div:last-child { border-bottom: none; }
+.deflist b { grid-column: 1; font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; font-weight: 600; color: var(--ink); }
+.deflist span { grid-column: 2; display: block; font-size: 0.8rem; color: var(--dim); line-height: 1.55; }
+.deflist.narrow > div { grid-template-columns: 8rem 1fr; }
+.deflist.wide > div { grid-template-columns: 14.5rem 1fr; }
+
+/* ---------- 타임라인 (순서 있는 절차 — 레일 + 점) ----------
+   계약: <div class="timeline"><div><b>제목</b><span>설명</span></div>…</div> */
+.timeline { position: relative; display: grid; gap: 0.8rem; margin: 0.95rem 0 0 0.45rem; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.45rem;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  width: 2px;
+  background: var(--rule);
+}
+.timeline > div { position: relative; padding-left: 1.8rem; }
+.timeline > div::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.18rem;
+  width: 0.92rem;
+  height: 0.92rem;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--orange);
+  box-sizing: border-box;
+}
+.timeline b { display: block; font-size: 0.86rem; font-weight: 700; }
+.timeline span { display: block; font-size: 0.76rem; color: var(--dim); line-height: 1.5; margin-top: 0.12rem; }
+
+/* ---------- VS 비교 (양자 대결) ----------
+   계약: <div class="vs"><div class="pane">…</div><i class="vs-badge">VS</i><div class="pane">…</div></div> */
+.vs { display: grid; grid-template-columns: 1fr 2.7rem 1fr; align-items: stretch; margin: 0.9rem 0; }
+.vs .vs-badge {
+  font-style: normal;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--orange);
+}
+
+/* ---------- 빅스탯 (핵심 숫자 나열) ----------
+   계약: <div class="bigstat"><div><i>라벨</i><b>숫자</b><span>설명</span></div>…</div> */
+.bigstat { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.85rem; margin: 1.05rem 0; }
+.bigstat.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.bigstat > div { border-top: 3px solid var(--ink); padding-top: 0.5rem; }
+.bigstat > div.hot { border-top-color: var(--orange); }
+.bigstat i {
+  font-style: normal;
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 0.22rem;
+}
+.bigstat b { display: block; font-family: var(--display); font-size: 1.42rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; }
+.bigstat b small { font-size: 0.72rem; font-weight: 600; color: var(--dim); margin-left: 0.1rem; }
+.bigstat span { display: block; font-size: 0.72rem; color: var(--dim); line-height: 1.45; margin-top: 0.24rem; }
+
+/* ---------- 스크린샷 프레임 (창 크롬 + 캡션) ----------
+   계약: <figure class="shot"><img …><figcaption>…</figcaption></figure> */
+.shot { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin: 0; box-shadow: 0 16px 20px -18px rgba(15, 30, 50, 0.45); }
+.shot::before {
+  content: '● ● ●';
+  display: block;
+  font-size: 0.42rem;
+  letter-spacing: 0.2em;
+  color: #C3CCD4;
+  padding: 0.34rem 0.65rem;
+  border-bottom: 1px solid var(--rule);
+  background: #EDF0F2;
+}
+.shot img {
+  display: block;
+  width: 100%;
+  max-height: 11.2rem; /* 세로형·초대형 이미지가 슬라이드를 뚫지 않게 상한 */
+  object-fit: contain;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.shot.wide img { max-height: 12.5rem; background: #f8fafb; } /* 풀폭 다이어그램용 */
+.shot figcaption {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--dim);
+  padding: 0.36rem 0.65rem;
+  border-top: 1px solid var(--rule);
+}
+.shot.crop img { max-height: 11.5rem; object-fit: cover; object-position: top; }
+.shot-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin: 0.9rem 0; align-items: start; }
+.shot-row.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* ---------- 칩 나열 (형식·키워드 태그) ----------
+   계약: <div class="chips"><i>PDF</i><i>DOCX</i>…</div> */
+.chips { display: flex; flex-wrap: wrap; gap: 0.38rem; margin: 0.55rem 0; }
+.chips i {
+  font-style: normal;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--ink);
+}
+.chips i.hot { border-color: var(--orange); color: var(--orange); }
+
+/* ---------- 인용 ----------
+   계약: <p class="quote">본문 <span class="who">— 출처</span></p> */
+.quote { font-size: 0.96rem; line-height: 1.7; color: var(--ink); border-left: 3px solid var(--ink); padding: 0.15rem 0 0.15rem 1.05rem; margin: 1rem 0; }
+.quote em { font-style: normal; color: var(--orange); }
+.quote .who { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; color: var(--dim); margin-top: 0.45rem; }
+
 /* ---------- 밀도 압축 변형 (콘텐츠 많은 슬라이드용) ---------- */
 .compact { padding-top: 2.1rem; }
 .compact h1 { margin-bottom: 0.45rem; font-size: 1.6rem; }

@@ -72,12 +72,12 @@ const browser = await chromium.launch()
 const report = {}
 for (const scheme of ['light', 'dark']) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, colorScheme: scheme })
-  await page.goto(base + '/1', { waitUntil: 'networkidle' })
+  await page.goto(base + '/#/1', { waitUntil: 'networkidle' })
   const total = await page.evaluate(() => window.__slidev__.nav.total)
   report.total = total
   report[scheme] = {}
   for (let n = 1; n <= total; n++) {
-    await page.goto(`${base}/${n}`, { waitUntil: 'domcontentloaded' })
+    await page.evaluate((x) => window.__slidev__.nav.go(x), n)
     await page.waitForFunction((x) => window.__slidev__?.nav?.currentPage === x, n, { timeout: 8000 })
     await page.waitForTimeout(450)
     await page.screenshot({ path: path.join(outDir, `${scheme}-${String(n).padStart(2, '0')}.png`) })

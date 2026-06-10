@@ -2,7 +2,8 @@
 
 이 폴더는 수업 중 학생들이 직접 열어보고 따라 할 실습 자료입니다.
 
-> 📺 **수업 슬라이드**: https://cozytk.github.io/google-antigravity-practice/ (소스: [`slides/`](slides/))
+> 📺 **수업 슬라이드 (prod)**: https://cozytk.github.io/google-antigravity-practice/prod/
+> 🧪 미리보기 (dev): https://cozytk.github.io/google-antigravity-practice/ · 소스: [`slides/`](slides/)
 
 1일차에는 코드를 거의 쓰지 않고 Gemini, GEMS, Google Sheets, Apps Script, AppSheet로 업무를 자동화했습니다.
 2일차에는 한 단계 더 나아가 **코드 에이전트(AI가 코드를 대신 작성하고 실행해 주는 도구)** 를 사용합니다.
